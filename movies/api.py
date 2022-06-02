@@ -20,7 +20,6 @@ class ActorViewSet(viewsets.ViewSet):
         queryset = Actor.objects.all()
         actor = get_object_or_404(queryset, pk=pk)
         serializer = ActorDetailSerializer(actor)
-        # print(self.retrieve.u)
         return Response(serializer.data)
 
 
@@ -34,11 +33,8 @@ class ActorModelViewSet(viewsets.ModelViewSet):
     serializer_class = ActorListSerializer
     queryset = Actor.objects.all()
 
-    # @action(detail=False, permission_classes=[permissions.IsAuthenticated])
-    # def my_list(self, request, *args, **kwargs):
-    #     return super().list(request, *args, **kwargs)
 
-    @action(detail=True, methods=['get', 'put']) #, renderer_classes=[renderers.AdminRenderer])
+    @action(detail=True, methods=['get', 'put'])
     def example(self, request, *args, **kwargs):
         actor = self.get_object()
         serializer = ActorDetailSerializer(actor)
@@ -46,11 +42,4 @@ class ActorModelViewSet(viewsets.ModelViewSet):
         self.reverse_action("actor", args=['1']),
         return Response(serializer.data)
 
-    # def get_permissions(self):
-    #     if self.action == 'list':
-    #         permission_classes = [permissions.IsAuthenticated]
-    #     elif self.action == "example":
-    #         permission_classes = [permissions.IsAuthenticated]
-    #     else:
-    #         permission_classes = [permissions.IsAdminUser]
-    #     return [permission() for permission in permission_classes]
+   
